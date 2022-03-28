@@ -1,0 +1,60 @@
+Default Truncations:
+0.001	0.999
+
+6 Distributions:
+Uniform
+Diffus
+
+1	1
+10	90	1
+
+Uniform
+Disp
+
+1	1
+1	10	1
+
+Uniform
+Kd
+
+1	1
+10	50	1
+
+Uniform
+yita
+
+1	1
+0.01	0.02	1
+
+Uniform
+alpha
+
+1	1
+0.1	0.7	1
+
+Uniform
+Km
+
+1	1
+0.001	0.003	1
+
+Correlation information
+0 -1 0 
+0 -1 0 
+0 -1 0 
+0 -1 0 
+0 -1 0 
+0 -1 0 
+Correlation Matrix:
+1	0	0	0	0	0	
+0	1	0	0	0	0	
+0	0	1	0	0	0	
+0	0	0	1	0	0	
+0	0	0	0	1	0	
+0	0	0	0	0	1	
+Stein Information:
+
+0
+0
+0
+2

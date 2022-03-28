@@ -1,0 +1,13 @@
+Pcp_File_Version=4
+*** BLOCK I: ATMOSPHERIC INFORMATION  **********************************
+   MaxAL                    (MaxAL = number of atmospheric data-records)
+      1
+ DailyVar  SinusVar  lLay  lBCCycles lInterc lDummy  lDummy  lDummy  lDummy  lDummy
+       t       t       t       f       f       f       f       f       f       f
+ Extinction
+    0.39
+ hCritS                 (max. allowed pressure head at the soil surface)
+     20
+       tAtm        Prec       rSoil       rRoot      hCritA          rB          hB          ht        tTop        tBot        Ampl        cTop        cBot   RootDepth
+1          0.0         0.636907043         0.20024242842534054      100000           0         40.4256324           0           0           0           0           0.0       2.5461589743897335e-05 
+end*** END OF INPUT FILE 'ATMOSPH.IN' **********************************

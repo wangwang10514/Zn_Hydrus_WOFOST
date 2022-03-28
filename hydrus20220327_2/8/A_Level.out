@@ -1,0 +1,7 @@
+
+
+   Time         sum(rTop)     sum(rRoot)    sum(vTop)     sum(vRoot)     sum(vBot)    hTop       hRoot      hBot      A-level
+    [T]           [L]           [L]           [L]           [L]            [L]        [L]         [L]       [L] 
+
+     1.00000 -0.138768E+01  0.437859E-01 -0.138767E+01  0.433464E-01 -0.721015E+00   -193.019   -180.623     39.411       1
+end

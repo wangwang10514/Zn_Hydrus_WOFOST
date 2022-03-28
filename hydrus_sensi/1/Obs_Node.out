@@ -1,0 +1,13 @@
+ ******* Program HYDRUS
+ ******* 
+ Welcome to HYDRUS-1D                                                    
+ Date:  22. 2.2022    Time:  17:34:13
+ Units: L = cm   , T = days , M = mg   
+
+
+
+                               Node(  1)                                 Node(  6)                                 Node( 11)                                 Node( 16)                                 Node( 21)                                 Node( 26)                                 Node( 36)                                 Node( 46)                                 Node( 56)                                 Node( 66)
+
+         time            h        theta    Flux     Conc              h        theta    Flux     Conc              h        theta    Flux     Conc              h        theta    Flux     Conc              h        theta    Flux     Conc              h        theta    Flux     Conc              h        theta    Flux     Conc              h        theta    Flux     Conc              h        theta    Flux     Conc              h        theta    Flux     Conc     
+          1.0000     -176.44  0.2957  0.1158E+00  0.2719E-04       -162.45  0.3016 -0.3627E+00  0.1806E-04       -151.44  0.3062 -0.7628E+00  0.1792E-04       -142.17  0.3105 -0.1096E+01  0.1792E-04       -133.84  0.3144 -0.1370E+01  0.1792E-04       -126.02  0.3180 -0.1587E+01  0.1792E-04       -110.39  0.3256 -0.1857E+01  0.1792E-04        -92.46  0.3344 -0.1882E+01  0.1792E-04        -70.74  0.3452 -0.1613E+01  0.1792E-04        -44.92  0.3574 -0.9969E+00  0.1792E-04
+end

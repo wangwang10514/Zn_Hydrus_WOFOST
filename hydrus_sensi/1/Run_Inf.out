@@ -1,0 +1,11 @@
+ ******* Program HYDRUS
+ ******* 
+ Welcome to HYDRUS-1D                                                    
+ Date:  22. 2.2022    Time:  17:34:13
+ Units: L = cm   , T = days , M = mg   
+
+
+    TLevel      Time           dt     ItrW ItrC    ItCum  KodT  KodB Converg  Peclet   Courant
+
+        1  0.1000000E+01  0.10000E+01    4    1        4    -4     3     T     7.161     2.639
+end

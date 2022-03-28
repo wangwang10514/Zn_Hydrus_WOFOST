@@ -1,0 +1,32 @@
+{
+    "id": "9A6AC5BD",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1648130539675.0,
+    "source_on_save": false,
+    "relative_order": 11,
+    "properties": {
+        "expression": "field1soil_df",
+        "caption": "field1soil_df",
+        "totalObservations": 101,
+        "displayedObservations": 101,
+        "variables": 592,
+        "cacheKey": "6EDE4F0C",
+        "object": "field1soil_df",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=field1soil_df&cache_key=6EDE4F0C&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 2314861393371608375,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1648130539675,
+    "read_only": false,
+    "read_only_alternatives": []
+}

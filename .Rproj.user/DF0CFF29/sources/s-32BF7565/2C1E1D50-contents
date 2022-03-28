@@ -1,0 +1,196 @@
+library(ggplot2);library(reshape2);library(dplyr);library(scales)
+library(ggplot2);library(reshape2);library(dplyr);library(scales);library(ggpubr)
+library(lmtest)
+library(hydroGOF)
+library(patchwork)
+mytheme = theme_bw()+theme(
+  #panel.grid.major = element_blank(),
+  #panel.grid.minor = element_blank(),
+  axis.title = element_text(face = 'bold'),
+  axis.text = element_text(face = 'bold'),
+  legend.title = element_text(face = 'bold'),
+  legend.text = element_text(face = 'bold'),
+  legend.position = 'right',
+  text = element_text( face = 'bold'),  
+)
+drawpdf=function(fig,figname,widthl,heightl){
+  fignamepdf = paste(figname,'.pdf',sep="")
+  pdf(fignamepdf,width =widthl,height = heightl)
+  print(fig)
+  dev.off()
+  ppi=300
+  fignamepng = paste(figname,'.png',sep="")
+  png(fignamepng,width =widthl*ppi,height = heightl*ppi,res = ppi)
+  print(fig)
+  dev.off()
+}
+
+# 先来读取真实值
+# 土壤锌含量
+shouhuohouzn = read.csv('main_result/real_data/shouhuohouzn.csv')
+names(shouhuohouzn) = c('field','zn','soil_zn','sprinkle_zn','depth')
+shouhuohouzn = subset(shouhuohouzn,select = c(-sprinkle_zn))
+shouhuohouzn$depth[shouhuohouzn$depth==20] = 10
+shouhuohouzn$depth[shouhuohouzn$depth==40] = 20
+
+xinhanliang = read.csv('main_result/real_data/xinhanliang.csv')
+
+rice_type = read.csv('main_result/real_data/rice_type.csv')
+rice_type$rice_type[rice_type$rice_type=='籼稻'] = '黄华占'
+rice_type$rice_type[rice_type$rice_type=='糯稻'] = '99-25'
+rice_type$rice_type[rice_type$rice_type=='粳稻'] = '南粳9108'
+
+zn_handle = read.csv('main_result/real_data/zn_handle.csv')
+# 再来读取模拟值
+simuldf = read.csv('main_result/extract_data.csv')
+
+
+# 分析真实值和模拟值的关系
+# 土壤锌含量
+znsimuldf = subset(simuldf,select = c(-cmr,-cgl))
+znsimuldf = melt(znsimuldf,id.vars = 'field',variable.name = 'depth' ,value.name = 'simulzn')
+znsimuldf$depth = as.character(znsimuldf$depth)
+znsimuldf$depth[znsimuldf$depth=='depth10conc'] = 10
+znsimuldf$depth[znsimuldf$depth=='depth20conc'] = 20
+znsimuldf$depth = as.numeric(znsimuldf$depth)
+zndf = left_join(shouhuohouzn,znsimuldf,by=c('field','depth'))
+zndf = subset(zndf,select = c(-soil_zn))
+zndf = left_join(zndf,zn_handle,by=c('field'))
+zndf[30,2] = NA
+
+
+# 做统计
+str(zndf)
+myvars=c('zn','simulzn')
+statzndf = aggregate(zndf[myvars],by=list(soil_zn = zndf$soil_zn,
+                                          depth = zndf$depth,
+                                          sprinkle_zn = zndf$sprinkle_zn), mean,na.rm=T)
+model = lm(simulzn~zn,data=statzndf,na.action = na.omit)
+summary(model)
+statzndf$soil_zn = factor(statzndf$soil_zn,levels = c(0,1,2,3))
+statzndf$sprinkle_zn = factor(statzndf$sprinkle_zn,levels = c(0,3))
+statzndf$depth = factor(statzndf$depth,levels = c(10,20))
+ggplot(statzndf,aes(zn,simulzn,color=soil_zn,shape=sprinkle_zn))+
+  geom_point()+
+  mytheme+
+  scale_color_brewer(palette = 'RdYlGn')+
+  scale_fill_manual(values = c(NA,'black'))
+ggsave('不同深度锌浓度模拟结果.png',width = 5,height = 4)
+
+
+statzndf1 = aggregate(zndf[myvars],by=list(soil_zn = zndf$soil_zn), mean,na.rm=T)
+statzndf1 = melt(statzndf1,id.vars = 'soil_zn',variable.name = 'zn_type',value.name = 'zn_mean')
+statzndf1
+statzndf2 = aggregate(zndf[myvars],by=list(soil_zn = zndf$soil_zn), sd,na.rm=T)
+statzndf2 = melt(statzndf2,id.vars = 'soil_zn',variable.name = 'zn_type',value.name = 'zn_std')
+statzndf1 = left_join(statzndf1,statzndf2,by=c('soil_zn','zn_type'))
+# statzndf1 = melt(statzndf1,id.vars = c('soil_zn','zn_type'),variable.name = 'zn_stat',value.name = 'zn')
+statzndf1$soil_zn = factor(statzndf1$soil_zn,levels = c(0,1,2,3))
+
+
+fig_zndepth = ggplot(statzndf1,aes(soil_zn,zn_mean,fill=zn_type))+
+  geom_bar(position='dodge',stat='identity',width=0.7)+
+  geom_errorbar(aes(ymin=zn_mean-zn_std,ymax=zn_mean+zn_std),width=0.2,size=0.5,position = position_dodge(0.7))+
+  scale_fill_brewer(palette = 'Set2')+
+  mytheme+
+  labs(x='Soil Zn(kg/mu)',y='Zn concertration(mg/kg)',fill='Value type')
+fig_zndepth
+ggsave('不同深度锌浓度模拟结果2.png',width = 6,height = 4)
+
+
+drawpdf(fig_zndepth,'不同深度锌浓度模拟结果',6,4)
+
+
+# statzndf1[3,3] = NA
+# statzndf1[2,3] = NA
+model = lm(simulzn~zn,data=statzndf1,na.action = na.omit)
+summary(model)
+
+
+
+model = lm(simulzn~zn,data=zndf,na.action = na.omit)
+summary(model)
+xmin = min(zndf$zn,na.rm = T)
+xmax = max(zndf$zn,na.rm = T)
+predicted = data.frame(zn = seq(xmin,xmax,length.out = 100))
+predicted$prezn = predict(model,predicted)
+zndf$soil_zn = factor(zndf$soil_zn,levels = c(0,1,2,3))
+zndf$depth = factor(zndf$depth,levels = c(10,20))
+ggplot(zndf,aes(zn,simulzn,color=depth))+
+  geom_point()+
+  mytheme+
+  scale_color_brewer(palette = 'Set2')
+
+
+
+
+# 水稻籽粒锌含量
+
+riceznsimuldf = subset(simuldf,select = c(-depth10conc,-depth20conc))
+xinhanliangstat = aggregate(xinhanliang,by = list(field = xinhanliang$field),mean,na.rm=T)
+xinhanliangstat = subset(xinhanliangstat,select=c('field','籽粒','颖壳'))
+names(xinhanliangstat) = c('field','jingmi','yingke')
+riceznsimuldf
+# riceznsimuldf = melt(riceznsimuldf)
+names(riceznsimuldf) = c('field','simjingmi','simyingke')
+simricezndf = left_join(xinhanliangstat,riceznsimuldf,by='field') 
+str(rice_type)
+str(simricezndf)
+simricezndf = left_join(simricezndf ,rice_type,by='field')
+simricezndf = left_join(simricezndf ,zn_handle,by='field')
+fig1 = ggplot(simricezndf,aes(jingmi,simjingmi,))+
+  geom_point(aes(color = rice_type))+
+  mytheme+
+  stat_smooth(method = lm,se=F)+
+  labs(x = 'Milled Rice(mg/kg)',y = 'simMilled Rice(mg/kg)',color='Rice type')+
+  scale_color_brewer(palette = 'Set2')+
+  geom_abline(intercept = 0,slope=1,color='red',linetype="dotdash")
+fig1
+ggsave('精米锌浓度模拟结果.png',width = 5,height = 4)
+model = lm(simjingmi~jingmi,data=simricezndf,na.action = na.omit)
+summary(model)
+r3=cor(simricezndf$simjingmi,simricezndf$jingmi)
+r21=round(r3*r3,3)
+rmse1=round(rmse(simricezndf$simjingmi,simricezndf$jingmi),3)
+r21
+rmse1
+fig2 = ggplot(simricezndf,aes(yingke,simyingke,))+
+  geom_point(aes(color = rice_type))+
+  mytheme+
+  stat_smooth(method = lm,se=F)+
+  labs(x = 'Glume(mg/kg)',y = 'simGlume(mg/kg)',color='Rice type')+
+  scale_color_brewer(palette = 'Set2')+
+  geom_abline(intercept = 0,slope=1,color='red',linetype="dotdash")+
+  xlim(20,90)+
+  ylim(20,90)
+fig2
+ggsave('颖壳锌浓度模拟结果.png',width = 5,height = 4)
+model = lm(simyingke~yingke,data=simricezndf,na.action = na.omit)
+summary(model)
+r3=cor(simricezndf$simyingke,simricezndf$yingke)
+r22=round(r3*r3,3)
+rmse2=round(rmse(simricezndf$simyingke,simricezndf$yingke),3)
+r22
+rmse2
+
+fig_zndepth
+fig1
+fig2
+
+
+finalfig = ggarrange(fig1,fig2,ncol = 2,nrow=1,
+                    labels =c("(a)","(b)"),
+                    common.legend = T,legend = "right")
+finalfig
+drawpdf(finalfig,'籽粒颖壳锌浓度模拟效果',8,3.5)
+
+r21
+rmse1
+r22
+rmse2
+
+
+
+
+
+

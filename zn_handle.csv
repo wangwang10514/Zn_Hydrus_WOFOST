@@ -1,0 +1,18 @@
+field,soil_zn,sprinkle_zn,zn_type
+1,0,3,znso4
+2,3,3,znso4
+3,2,3,znso4
+4,0,0,znso4
+5,1,3,znso4
+6,0,3,znso4
+7,0,0,znso4
+8,3,3,znso4
+9,2,3,znso4
+10,0,0,znso4
+11,1,3,znso4
+12,0,3,znso4
+13_1,3,0,znso4
+13_2,3,3,znso4
+13_3,3,3,EDTA
+13_4,3,3,Sugar alcohol zinc
+14,2,3,znso4

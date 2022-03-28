@@ -1,0 +1,32 @@
+{
+    "id": "062E26FC",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1646893067716.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "expression": "statzndf1",
+        "caption": "statzndf1",
+        "totalObservations": 4,
+        "displayedObservations": 4,
+        "variables": 3,
+        "cacheKey": "1ED7B9C3",
+        "object": "statzndf1",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=statzndf1&cache_key=1ED7B9C3&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 7954892334483841568,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1646893067716,
+    "read_only": false,
+    "read_only_alternatives": []
+}

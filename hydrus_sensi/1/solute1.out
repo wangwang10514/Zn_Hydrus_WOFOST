@@ -1,0 +1,6 @@
+ All solute fluxes and cumulative solute fluxes are positive into the region
+
+       Time         cvTop        cvBot      Sum(cvTop)   Sum(cvBot)     cvCh0        cvCh1         cTop        cRoot         cBot        cvRoot    Sum(cvRoot)  Sum(cvNEql) TLevel      cGWL        cRunOff   Sum(cRunOff)    (cv(i),    Sum(cv(i)), i=1,NObs)
+        [T]        [M/L2/T]     [M/L2/T]      [M/L2]       [M/L2]       [M/L2]      [M/L2]        [M/L3]      [M/L3]        [M/L3]      [M/L2/T]      [M/L2]       [M/L2]              [M/L3]        [M/L2]      [M/L3]      [M/L2/T]      [M/L2]
+        1.0000  0.00000E+00 -0.43316E-04  0.00000E+00 -0.43316E-04  0.00000E+00  0.00000E+00  0.27187E-04  0.18383E-04  0.17934E-04  0.77973E-06  0.77973E-06 -0.63324E-03       1  0.17916E-04  0.00000E+00  0.00000E+00  0.31497E-05  0.31497E-05 -0.65347E-05 -0.65347E-05 -0.13667E-04 -0.13667E-04 -0.19644E-04 -0.19644E-04
+end
