@@ -156,7 +156,7 @@ def get_fieldinf2(field):
         '13_2': 3,
         '13_3': 3,
         '13_4': 3,
-        '14': 3,
+        '14': 2,
 
     }
     rice_type_dic = {
@@ -274,18 +274,10 @@ def get_fieldinf3(field,sprinkle_date):
     rice_type = rice_type_dic[field]
     return [rice_type,soil_zn ,sprinkle_zn,sprinkle_das]
 
-def cal_initial_zn_conc0(soil_zn, theta, Kd, yita):
-    mass_conc = 73.33
-    v_conc = mass_conc * 1.45 / 1000
-    c = sympy.symbols('c')
-    liquid_c = sympy.solve(theta * c + 1.45 * Kd * c / (1 + yita * c) - v_conc, c)[1]
-    sorbed_c = 1.45 * Kd * liquid_c / (1 + yita * liquid_c)
-    liquid_c += soil_zn * 0.0147
-    return sorbed_c, liquid_c
 
 
 def cal_initial_zn_conc1(soil_zn, theta, Kd, yita):
-    mass_conc = 73.33 + soil_zn * 5.1724
+    mass_conc = 73.33 + soil_zn * (0.15/(21*1.45/1000))
     v_conc = mass_conc * 1.45 / 1000
     c = sympy.symbols('c')
     liquid_c = sympy.solve(theta * c + 1.45 * Kd * c / (1 + yita * c) - v_conc, c)[1]
@@ -470,7 +462,7 @@ def initial_soil(rice_data, croot, day, rice_type, soil_zn, SELECTOR_IN_data=Non
 
     if day == 1:
         # 初始化浓度
-        # 前三层
+        # 前7层
         sorbed_c, liquid_c = cal_initial_zn_conc1(soil_zn=soil_zn, theta=0.3713, Kd=Ks, yita=yita)
         # 后面的
         sorbed_c0, liquid_c0 = cal_initial_zn_conc1(soil_zn=0, theta=0.3713, Kd=Ks, yita=yita)

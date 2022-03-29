@@ -9,5 +9,5 @@ Pcp_File_Version=4
  hCritS                 (max. allowed pressure head at the soil surface)
      20
        tAtm        Prec       rSoil       rRoot      hCritA          rB          hB          ht        tTop        tBot        Ampl        cTop        cBot   RootDepth
-1          0.0         0.7265460020000001         4.596885064959169      100000           0         51.6778823           0           0           0           0           0.0       0.000959538438108316 
+1          0.0         0.7265460020000001         4.596885064959169      100000           0         51.6778823           0           0           0           0           0.0       0.0009682876965000683 
 end*** END OF INPUT FILE 'ATMOSPH.IN' **********************************

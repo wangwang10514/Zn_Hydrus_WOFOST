@@ -197,7 +197,7 @@ def run(i):
     # hydrus参数
     SELECTOR_IN_data = [Diffus, Disp, Kd, yita, alpha, Km]
     # 创建hydrus文件夹
-    time.sleep(0.3)
+    time.sleep(0.5)
     if os.path.exists(file_dir):
         shutil.rmtree(file_dir)
     time.sleep(0.2)
@@ -231,7 +231,7 @@ def run(i):
         out = utils.get_output(filedir=file_dir, day=day)
         if day in sprinkle_das:
             solute_uptake = float(out[0])
-            zn_rice.ZALF = zn_rice.ZALF + 70 * abseff * 1000 * 10000 / 666.67
+            zn_rice.ZALF = zn_rice.ZALF + 70 * abseff * 1000 * 15
         else:
             solute_uptake = float(out[0])
         solute_uptake_list.append(solute_uptake)

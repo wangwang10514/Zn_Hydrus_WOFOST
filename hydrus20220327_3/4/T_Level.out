@@ -1,7 +1,7 @@
  ******* Program HYDRUS
  ******* 
  Welcome to HYDRUS-1D                                                    
- Date:  28. 3.2022    Time:   8:55:56
+ Date:  29. 3.2022    Time:  17:25:43
  Units: L = cm   , T = days , M = mg   
 
        Time          rTop        rRoot        vTop         vRoot        vBot       sum(rTop)   sum(rRoot)    sum(vTop)   sum(vRoot)    sum(vBot)      hTop         hRoot        hBot        RunOff    sum(RunOff)     Volume     sum(Infil)    sum(Evap) TLevel Cum(WTrans)  SnowLayer
